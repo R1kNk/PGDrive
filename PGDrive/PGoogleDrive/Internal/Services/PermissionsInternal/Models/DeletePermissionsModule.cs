@@ -5,14 +5,36 @@ using static PGoogleDrive.Internal.Services.Permissions;
 
 namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
 {
+    /// <summary>
+    /// Module that represents methods of deleting permissions
+    /// </summary>
     public abstract class DeletePermissionsModule : ServiceModule
     {
+        /// <summary>
+        /// Initializes module with service
+        /// </summary>
+        /// <param name="service"></param>
         public DeletePermissionsModule(DriveService service) : base(service)
         {
         }
 
+        /// <summary>
+        /// Method must implement deleting of file permission in general
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="service"></param>
+        /// <param name="permission"></param>
+        /// <returns></returns>
         protected abstract PGDriveResult<bool> DeleteFilePermission(string fileId, DriveService service, Permission permission);
-
+        /// <summary>
+        /// Method must implement deleting of the file permission in more friendly way
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="type"></param>
+        /// <param name="role"></param>
+        /// <param name="email"></param>
+        /// <param name="domain"></param>
+        /// <returns></returns>
         protected abstract PGDriveResult<bool> DeleteFilePermission(string fileId, Types type, Roles role, string email = null, string domain = null);
 
         /// <summary>

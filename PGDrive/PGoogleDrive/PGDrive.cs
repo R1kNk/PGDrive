@@ -1,12 +1,19 @@
 ﻿using Google.Apis.Drive.v3;
 using PGoogleDrive.Internal.Services;
-using static Google.Apis.Drive.v3.DriveService;
 using PGoogleDrive.Internal.Models.Scopes;
+using System;
 
 namespace PGoogleDrive
 {
+    /// <summary>
+    /// Main class of PGoogleDrive for  interaction with Google drive.
+    /// Contains all methods and modules to use.
+    /// </summary>
     public class PGDrive
     {
+        /// <summary>
+        /// Application name that user uses to access drive via credentials
+        /// </summary>
         public string ApplicationName { get; private set; }
 
         DriveService driveService { get; set; }

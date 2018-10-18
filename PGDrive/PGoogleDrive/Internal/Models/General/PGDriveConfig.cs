@@ -3,7 +3,7 @@
 namespace PGoogleDrive.Internal.Models.General
 {
 
-    public class PGDriveConfig
+    internal class PGDriveConfig
     {
         public static PGDriveConfigSection _Config = ConfigurationManager.GetSection("PGDrive") as PGDriveConfigSection;
 
@@ -34,7 +34,7 @@ namespace PGoogleDrive.Internal.Models.General
         }
     }
 
-    public class PGDriveConfigSection : ConfigurationSection
+    internal class PGDriveConfigSection : ConfigurationSection
     {
         //Decorate the property with the tag for your collection.
         [ConfigurationProperty("OAuthDrives")]
@@ -51,7 +51,7 @@ namespace PGoogleDrive.Internal.Models.General
     }
 
     [ConfigurationCollection(typeof(OAuthGDriveElement), AddItemName ="drive")]
-    public class OAuthPGDriveElementCollection : ConfigurationElementCollection
+    internal class OAuthPGDriveElementCollection : ConfigurationElementCollection
     {
         public OAuthGDriveElement this[int index]
         {
@@ -73,7 +73,7 @@ namespace PGoogleDrive.Internal.Models.General
         }
     }
 
-    public class OAuthGDriveElement : ConfigurationElement
+    internal class OAuthGDriveElement : ConfigurationElement
     {
         [ConfigurationProperty("name", IsRequired = true)]
         [StringValidator(InvalidCharacters = "~!@#$%^&*()[]{}/;'\"|\\")]
@@ -103,7 +103,7 @@ namespace PGoogleDrive.Internal.Models.General
     }
 
     [ConfigurationCollection(typeof(OAuthGDriveElement), AddItemName ="drive")]
-    public class ApiKeyPGDriveElementCollection : ConfigurationElementCollection
+    internal class ApiKeyPGDriveElementCollection : ConfigurationElementCollection
     {
         public ApiKeyGDriveElement this[int index]
         {
@@ -124,8 +124,8 @@ namespace PGoogleDrive.Internal.Models.General
             return ((ApiKeyGDriveElement)element).Name;
         }
     }
- 
-    public class ApiKeyGDriveElement : ConfigurationElement
+
+    internal class ApiKeyGDriveElement : ConfigurationElement
     {
         [ConfigurationProperty("name", IsRequired = true)]
         [StringValidator(InvalidCharacters = "~!@#$%^&*()[]{}/;'\"|\\")]

@@ -62,6 +62,9 @@
             WebM
         }
 
+        /// <summary>
+        /// Generic group of mime types
+        /// </summary>
         public enum Generic
         {
             Application = 37,

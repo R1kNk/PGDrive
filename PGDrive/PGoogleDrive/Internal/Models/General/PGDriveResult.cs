@@ -2,12 +2,27 @@
 
 namespace PGoogleDrive.Internal.Models.General
 {
+    /// <summary>
+    /// Almost all methods of PGDrive class returns objects of this class with different bodies that Google Drive API returns 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class PGDriveResult<T>
     {
+        /// <summary>
+        /// Is request to google drive was successful
+        /// </summary>
         public bool isSuccess { get; private set; } 
+        /// <summary>
+        /// ResponseBody contains data that was returned to user via Google Drive api
+        /// </summary>
         public T ResponseBody { get; private set; }
+        /// <summary>
+        /// If request wasn't successful - this object represents type and reason of error
+        /// </summary>
         public  RequestError Error { get; private set; }
 
+        /// <summary>
+        /// </summary>
         public PGDriveResult()
         {
             isSuccess = true;

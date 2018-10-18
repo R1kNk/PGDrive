@@ -5,15 +5,37 @@ using PGoogleDrive.Internal.Models.General;
 
 namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
 {
+    /// <summary>
+    /// Module that represents methods of creating permissions
+    /// </summary>
     public abstract class CreatePermissionsModule : ServiceModule
     {
+        /// <summary>
+        /// Initializes module with service
+        /// </summary>
+        /// <param name="service">Drive service to initialize</param>
         public CreatePermissionsModule(DriveService service) : base(service)
         {
         }
 
-
+        /// <summary>
+        /// Method that must implement creating of file permission in general
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="service"></param>
+        /// <param name="permission"></param>
+        /// <returns></returns>
         protected abstract PGDriveResult<Permission> CreateFilePermission(string Id, DriveService service, Permission permission);
 
+        /// <summary>
+        /// Method that must implement creating of file permission in more friendly way
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="type"></param>
+        /// <param name="role"></param>
+        /// <param name="email"></param>
+        /// <param name="domain"></param>
+        /// <returns></returns>
         protected abstract PGDriveResult<Permission> CreateFilePermission(string Id, Types type, Roles role, string email = null, string domain = null);
 
         /// <summary>
