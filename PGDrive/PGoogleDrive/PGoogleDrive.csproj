@@ -58,8 +58,8 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internal\Models\FileDownloadResult.cs" />
-    <Compile Include="Internal\Models\CustomExeptions.cs" />
+    <Compile Include="Internal\Models\General\FileDownloadResult.cs" />
+    <Compile Include="Internal\Models\General\CustomExeptions.cs" />
     <Compile Include="Internal\Models\Scopes\DriveAppdataScope.cs" />
     <Compile Include="Internal\Models\Scopes\DriveFileScope.cs" />
     <Compile Include="Internal\Models\Scopes\DriveMetadataReadonlyScope.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="Internal\Services\Files.cs" />
     <Compile Include="Internal\Services\PermissionsInternal\DeletePermissions.cs" />
     <Compile Include="Internal\Services\PermissionsInternal\Models\DeletePermissionsModule.cs" />
-    <Compile Include="Internal\Models\ServiceModule.cs" />
+    <Compile Include="Internal\Models\General\ServiceModule.cs" />
     <Compile Include="Internal\Services\PermissionsInternal\Models\CreatePermissionsModule.cs" />
     <Compile Include="Internal\Services\PermissionsInternal\CreatePermissions.cs" />
     <Compile Include="Internal\Services\Replies.cs" />
@@ -97,9 +97,9 @@
     <Compile Include="Internal\Models\Search\SearchByViewedByMeTime.cs" />
     <Compile Include="Internal\Models\Search\SearchInReaders.cs" />
     <Compile Include="Internal\Services\Permissions.cs" />
-    <Compile Include="Internal\Models\PGDriveResult.cs" />
+    <Compile Include="Internal\Models\General\PGDriveResult.cs" />
     <Compile Include="PGDrive.cs" />
-    <Compile Include="Internal\Models\PGDriveConfig.cs" />
+    <Compile Include="Internal\Models\General\PGDriveConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

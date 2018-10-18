@@ -1,6 +1,6 @@
 ﻿using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
-using PGoogleDrive.Internal.Models;
+using PGoogleDrive.Internal.Models.General;
 using System.Collections.Generic;
 
 namespace PGoogleDrive.Internal.Services

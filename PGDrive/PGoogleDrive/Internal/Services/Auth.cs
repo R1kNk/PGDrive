@@ -3,7 +3,7 @@ using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
-using PGoogleDrive.Internal.Models;
+using PGoogleDrive.Internal.Models.General;
 using PGoogleDrive.Internal.Models.Scopes;
 using System;
 using System.Collections.Generic;

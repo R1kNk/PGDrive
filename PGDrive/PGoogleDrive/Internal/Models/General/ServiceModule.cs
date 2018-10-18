@@ -1,6 +1,6 @@
 ﻿using Google.Apis.Drive.v3;
 
-namespace PGoogleDrive.Internal.Models
+namespace PGoogleDrive.Internal.Models.General
 {
     public abstract class ServiceModule
     {

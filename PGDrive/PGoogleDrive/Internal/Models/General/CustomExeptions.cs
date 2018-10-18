@@ -2,7 +2,7 @@
 using Google.Apis.Requests;
 using System.Collections.Generic;
 
-namespace PGoogleDrive.Internal.Models
+namespace PGoogleDrive.Internal.Models.General
 {
     static class CustomExceptions
     {

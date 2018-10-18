@@ -1,6 +1,6 @@
 ﻿using Google.Apis.Requests;
 
-namespace PGoogleDrive.Internal.Models
+namespace PGoogleDrive.Internal.Models.General
 {
     public class PGDriveResult<T>
     {

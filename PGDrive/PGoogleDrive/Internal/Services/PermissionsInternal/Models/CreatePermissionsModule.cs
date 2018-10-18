@@ -1,7 +1,7 @@
 ﻿using Google.Apis.Drive.v3.Data;
 using Google.Apis.Drive.v3;
-using PGoogleDrive.Internal.Models;
 using static PGoogleDrive.Internal.Services.Permissions;
+using PGoogleDrive.Internal.Models.General;
 
 namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
 {

@@ -1,4 +1,4 @@
-﻿namespace PGoogleDrive.Internal.Models
+﻿namespace PGoogleDrive.Internal.Models.General
 {
     public class FileDownloadResult
     {
