@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Web;
-using System.Web.Configuration;
-using System.Xml.Linq;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Drive.v3.Data;
-using Google.Apis.Drive.v3;
+﻿using Google.Apis.Drive.v3;
+using PGoogleDrive.Internal.Services;
+using static Google.Apis.Drive.v3.DriveService;
+using PGoogleDrive.Internal.Models.Scopes;
 
 namespace PGoogleDrive
 {
@@ -17,103 +9,46 @@ namespace PGoogleDrive
     {
         public string ApplicationName { get; private set; }
 
-        string clientSecretPath; 
+        DriveService driveService { get; set; }
 
-        UserCredential credential;
-
-        DriveService driveService;
-
-        enum PermissionTypes
+        /// <summary>
+        /// Creates a new object of PGDrive object and authenticates user
+        /// </summary>
+        /// <param name="pGDriveConfigElementName">Name of element in PGDrive section in your config</param>
+        /// <param name="scopes">Scopes provides permissions to use your drive. Use PGScopes static class,
+        /// combine scopes using method And in scopes.
+        /// </param>
+        /// <param name="reCreateOAuthToken">Recreate your OAuth response token with new scopes you need?</param>
+        /// <exception cref="NullReferenceException">Throws if configElement with such name wasn't founded</exception>
+        public PGDrive(string pGDriveConfigElementName, PGScope scopes = null, bool reCreateOAuthToken = false)
         {
-            user = 1,
-            group,
-            domain,
-            anyone
-        }
-        public enum PermissionRoles
-        {
-            owner = 1,
-            organizer,
-            fileOrganizer,
-            writer,
-            commenter,
-            reader
-        }
+            Auth = new Auth();
+            driveService = Auth.GetDriveService(pGDriveConfigElementName, scopes, reCreateOAuthToken);
+            ApplicationName = Auth.ApplicationName;
+            Permissions = new Permissions(driveService);
+            Files = new Files(driveService);
+            Comments = new Comments(driveService);
+            Replies = new Replies(driveService);
 
-        public PGDrive(string pGDriveAttributeName)
-        {
-            //var config = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug","")+"/Web.config");
-            //var targetNode = config.Root.Element("configSections");
-            //XElement xElement = new XElement("section", new XAttribute("name", "pGDriveConfigs"), new XAttribute("type", "PGoogleDrive.PGDriveConfigsSection"));
-            //targetNode.Add(xElement);
-            //config.Save(AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug", "") + "/Web.config");
-            
         }
 
-        private bool SetFilePermission(string fileId, PermissionTypes type, PermissionRoles role, string email=null, string domain = null)
-        {
-            Permission newPermission = Internal.Permissions.CreatePermission((int)type, (int)role);
-            if (email != null) newPermission.EmailAddress = email;
-            else if (domain != null) newPermission.Domain = domain;
-            var result = Internal.InternalMethods.SetFilePermission(fileId, driveService, newPermission);
-            if (result == null) { return false; }
-            return true;
-        }
-
-        private bool DeleteFilePermission(string fileId, PermissionTypes type, PermissionRoles role)
-        {
-            Permission newPermission = Internal.Permissions.CreatePermission((int)type, (int)role);
-            var result = Internal.InternalMethods.DeleteFilePermission(fileId, driveService, newPermission);
-            return result;
-        }
-
-        public bool SetFilePermissionUser(string fileId, PermissionRoles role, string userEmail)
-        {
-            var result = SetFilePermission(fileId, PermissionTypes.user, role, email: userEmail);
-            return result;
-        }
-
-        public bool SetFilePermissionGroup(string fileId, PermissionRoles role, string groupEmail)
-        {
-            var result = SetFilePermission(fileId, PermissionTypes.group, role, email: groupEmail);
-            return result;
-        }
-
-        public bool SetFilePermissionDomain(string fileId, PermissionRoles role, string domain)
-        {
-            var result = SetFilePermission(fileId, PermissionTypes.domain, role, domain: domain);
-            return result;
-        }
-
-        public bool SetFilePermissionAnyone( string fileId, PermissionRoles role)
-        {
-            var result = SetFilePermission(fileId, PermissionTypes.anyone, role);
-            return result;
-        }
-
-        public bool DeleteFilePermissionUser(string fileId, PermissionRoles role)
-        {
-            var result = DeleteFilePermission(fileId, PermissionTypes.user, role);
-            return result;
-        }
-
-        public bool DeleteFilePermissionGroup(string fileId, PermissionRoles role)
-        {
-            var result = DeleteFilePermission(fileId, PermissionTypes.group, role);
-            return result;
-        }
-
-        public bool DeleteFilePermissionDomain(string fileId, PermissionRoles role)
-        {
-            var result = DeleteFilePermission(fileId, PermissionTypes.domain, role);
-            return result;
-        }
-
-        public bool DeleteFilePermissionAnyone(string fileId, PermissionRoles role)
-        {
-            var result = DeleteFilePermission(fileId, PermissionTypes.anyone, role);
-            return result;
-        }
+        /// <summary>
+        /// Contains all methods and properties to work with permissions
+        /// </summary>
+        public Permissions Permissions { get; set; }
+        /// <summary>
+        /// Contains all methods to work with files and folders
+        /// </summary>
+        public Files Files { get; set; }
+        /// <summary>
+        /// Contains all methods to work with comments
+        /// </summary>
+        public Comments Comments { get; set; }
+        /// <summary>
+        /// Contains all methods to work with replies to comments
+        /// </summary>
+        public Replies Replies { get; set; }
+        Auth Auth { get; set; }
 
 
     }

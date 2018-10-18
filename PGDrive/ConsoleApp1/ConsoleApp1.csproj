@@ -32,8 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.Apis, Version=1.35.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab" />
+    <Reference Include="Google.Apis.Drive.v3, Version=1.35.2.1358, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,12 +51,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Web.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PGDriveConfigSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PGoogleDrive\PGoogleDrive.csproj">
-      <Project>{6ee8b304-762a-4bbc-bb1b-0ecdce86d324}</Project>
+      <Project>{6EE8B304-762A-4BBC-BB1B-0ECDCE86D324}</Project>
       <Name>PGoogleDrive</Name>
     </ProjectReference>
   </ItemGroup>
