@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace PGoogleDrive.Internal.Models.General
 {
@@ -9,7 +10,7 @@ namespace PGoogleDrive.Internal.Models.General
 
         public static ApiKeyPGDriveElementCollection GetApiKeysDrives()
         {
-            return _Config.ApiKeyDrives;
+                return _Config.ApiKeyDrives;
         }
         public static OAuthPGDriveElementCollection GetOAuthDrives()
         {
@@ -34,7 +35,7 @@ namespace PGoogleDrive.Internal.Models.General
         }
     }
 
-    internal class PGDriveConfigSection : ConfigurationSection
+    public class PGDriveConfigSection : ConfigurationSection
     {
         //Decorate the property with the tag for your collection.
         [ConfigurationProperty("OAuthDrives")]
@@ -51,7 +52,7 @@ namespace PGoogleDrive.Internal.Models.General
     }
 
     [ConfigurationCollection(typeof(OAuthGDriveElement), AddItemName ="drive")]
-    internal class OAuthPGDriveElementCollection : ConfigurationElementCollection
+    public class OAuthPGDriveElementCollection : ConfigurationElementCollection
     {
         public OAuthGDriveElement this[int index]
         {
@@ -73,10 +74,9 @@ namespace PGoogleDrive.Internal.Models.General
         }
     }
 
-    internal class OAuthGDriveElement : ConfigurationElement
+    public class OAuthGDriveElement : ConfigurationElement
     {
         [ConfigurationProperty("name", IsRequired = true)]
-        [StringValidator(InvalidCharacters = "~!@#$%^&*()[]{}/;'\"|\\")]
         public string Name
         {
             get { return (string)this["name"]; }
@@ -103,7 +103,7 @@ namespace PGoogleDrive.Internal.Models.General
     }
 
     [ConfigurationCollection(typeof(OAuthGDriveElement), AddItemName ="drive")]
-    internal class ApiKeyPGDriveElementCollection : ConfigurationElementCollection
+    public class ApiKeyPGDriveElementCollection : ConfigurationElementCollection
     {
         public ApiKeyGDriveElement this[int index]
         {
@@ -125,20 +125,13 @@ namespace PGoogleDrive.Internal.Models.General
         }
     }
 
-    internal class ApiKeyGDriveElement : ConfigurationElement
+    public class ApiKeyGDriveElement : ConfigurationElement
     {
         [ConfigurationProperty("name", IsRequired = true)]
-        [StringValidator(InvalidCharacters = "~!@#$%^&*()[]{}/;'\"|\\")]
         public string Name
         {
             get { return (string)this["name"]; }
             set { this["name"] = value; }
-        }
-        [ConfigurationProperty("applicationName", IsRequired = true)]
-        public string ApplicationName
-        {
-            get { return (string)this["applicationName"]; }
-            set { this["applicationName"] = value; }
         }
         [ConfigurationProperty("apiKey", IsRequired = true)]
         public string ApiKey

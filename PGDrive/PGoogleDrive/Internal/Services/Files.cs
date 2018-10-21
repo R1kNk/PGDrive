@@ -269,7 +269,7 @@ namespace PGoogleDrive.Internal.Services
         /// <summary>
         /// Gets all files from a drive using optional search query
         /// </summary>
-        /// <param name="searchPattern">Use static class Search for getting all needed SearchBy classes.
+        /// <param name="searchPattern">Use static class PGSearch for getting all needed SearchBy classes.
         /// Combine them using And, Or, Not methods in them to create a search query
         /// </param>
         /// <param name="maxFilesCount">Maximum files you need to get</param>
@@ -312,7 +312,7 @@ namespace PGoogleDrive.Internal.Services
         /// Gets all files from folder using optional search query
         /// </summary>
         /// <param name="folderId">Id of a folder</param>
-        /// <param name="searchPattern">Use static class Search for getting all needed SearchBy classes.
+        /// <param name="searchPattern">Use static class PGSearch for getting all needed SearchBy classes.
         /// Combine them using And, Or, Not methods in them to create a search query
         /// </param>
         /// <param name="maxFilesCount">Maximum files you need to get</param>
@@ -322,10 +322,10 @@ namespace PGoogleDrive.Internal.Services
             string QPattern = null;
             if (searchPattern != null)
             {
-                QPattern = Search.InFolder(folderId).And(searchPattern).Query;
+                QPattern = PGSearch.InFolder(folderId).And(searchPattern).Query;
 
             }
-            else { QPattern = Search.InFolder(folderId).Query; }
+            else { QPattern = PGSearch.InFolder(folderId).Query; }
             var result = GetFiles(QPattern, maxFilesCount);
             return result;
         }
@@ -333,7 +333,7 @@ namespace PGoogleDrive.Internal.Services
         /// Gets all files with specific name using optional search query
         /// </summary>
         /// <param name="fileOrFolderName">Name of a file or folder to search</param>
-        /// <param name="searchPattern">Use static class Search for getting all needed SearchBy classes.
+        /// <param name="searchPattern">Use static class PGSearch for getting all needed SearchBy classes.
         /// Combine them using And, Or, Not methods in them to create a search query
         /// </param>
         /// <param name="maxFilesCount">Maximum files you need to get</param>
@@ -343,10 +343,10 @@ namespace PGoogleDrive.Internal.Services
             string QPattern = null;
             if (searchPattern != null)
             {
-                QPattern = Search.ByName(Operators.Name.Equal, fileOrFolderName).And(searchPattern).Query;
+                QPattern = PGSearch.ByName(Operators.Name.Equal, fileOrFolderName).And(searchPattern).Query;
 
             }
-            else { QPattern = Search.ByName(Operators.Name.Equal, fileOrFolderName).Query; }
+            else { QPattern = PGSearch.ByName(Operators.Name.Equal, fileOrFolderName).Query; }
             var result = GetFiles(QPattern, maxFilesCount);
             return result;
         }

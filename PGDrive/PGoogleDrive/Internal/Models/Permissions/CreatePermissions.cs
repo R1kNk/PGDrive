@@ -2,11 +2,10 @@
 using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
 using PGoogleDrive.Internal.Models.General;
-using PGoogleDrive.Internal.Services.PermissionsInternal.Models;
-using System.Linq;
 using static PGoogleDrive.Internal.Services.Permissions;
+using System.Linq;
 
-namespace PGoogleDrive.Internal.Services.PermissionsInternal
+namespace PGoogleDrive.Internal.Models.Permissions
 {
     class CreatePermissions : CreatePermissionsModule
     {
@@ -36,14 +35,14 @@ namespace PGoogleDrive.Internal.Services.PermissionsInternal
             }
         }
 
-        protected override PGDriveResult<Permission>  CreateFilePermission(string fileId, Types type, Roles role, string email = null, string domain = null)
+
+        protected override PGDriveResult<Permission> CreateFilePermission(string Id, Types type, Roles role, string email = null, string domain = null)
         {
             Permission newPermission = CreatePermission((int)type, (int)role);
             if (email != null) newPermission.EmailAddress = email;
             else if (domain != null) newPermission.Domain = domain;
-            var result = CreateFilePermission(fileId, driveService, newPermission);
+            var result = CreateFilePermission(Id, driveService, newPermission);
             return result;
         }
-
     }
 }

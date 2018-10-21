@@ -2,11 +2,10 @@
 using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
 using PGoogleDrive.Internal.Models.General;
-using PGoogleDrive.Internal.Services.PermissionsInternal.Models;
 using System.Linq;
 using static PGoogleDrive.Internal.Services.Permissions;
 
-namespace PGoogleDrive.Internal.Services.PermissionsInternal
+namespace PGoogleDrive.Internal.Models.Permissions
 {
     class DeletePermissions : DeletePermissionsModule
     {

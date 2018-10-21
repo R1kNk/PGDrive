@@ -1,7 +1,7 @@
 ﻿using PGoogleDrive.Internal.Models.Scopes;
 
 
-namespace PGoogleDrive.Internal.Services
+namespace PGoogleDrive
 {
     /// <summary>
     /// Static class for getting all concrete classes of abstract Scope

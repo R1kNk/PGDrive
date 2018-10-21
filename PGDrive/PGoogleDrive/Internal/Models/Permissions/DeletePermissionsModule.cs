@@ -3,7 +3,7 @@ using Google.Apis.Drive.v3.Data;
 using PGoogleDrive.Internal.Models.General;
 using static PGoogleDrive.Internal.Services.Permissions;
 
-namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
+namespace PGoogleDrive.Internal.Models.Permissions
 {
     /// <summary>
     /// Module that represents methods of deleting permissions
@@ -56,9 +56,9 @@ namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
         /// <param name="role">Role which you want to delete from a specific user</param>
         /// <param name="userEmail">Email of user which have that permission/param>
         ///<returns>PGDriveResult with bool in ResponseBody which shows did permission was deleted or not</returns>
-        public PGDriveResult<bool> DeletePermissionUser(string fileOfFolderId, Roles role, string userEmailAddress)
+        public PGDriveResult<bool> DeletePermissionUser(string fileOrFolderId, Roles role, string userEmailAddress)
         {
-            var result = DeleteFilePermission(fileOfFolderId, Types.user, role, userEmailAddress);
+            var result = DeleteFilePermission(fileOrFolderId, Types.user, role, userEmailAddress);
             return result;
         }
         /// <summary>
@@ -68,9 +68,9 @@ namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
         /// <param name="role">Role which you want to delete from a specific google group</param>
         /// <param name="groupEmailAddress">Email of google group which have that permission/param>
         ///<returns>PGDriveResult with bool in ResponseBody which shows did permission was deleted or not</returns>
-        public PGDriveResult<bool> DeletePermissionGroup(string fileOfFolderId, Roles role, string groupEmailAddress)
+        public PGDriveResult<bool> DeletePermissionGroup(string fileOrFolderId, Roles role, string groupEmailAddress)
         {
-            var result = DeleteFilePermission(fileOfFolderId, Types.group, role, groupEmailAddress);
+            var result = DeleteFilePermission(fileOrFolderId, Types.group, role, groupEmailAddress);
             return result;
         }
         /// <summary>
@@ -80,9 +80,9 @@ namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
         /// <param name="role">Role which you want to delete from a specific google group</param>
         /// <param name="domain">Email of google group which have that permission/param>
         ///<returns>PGDriveResult with bool in ResponseBody which shows did permission was deleted or not</returns>
-        public PGDriveResult<bool> DeletePermissionDomain(string fileOfFolderId, Roles role, string domain)
+        public PGDriveResult<bool> DeletePermissionDomain(string fileOrFolderId, Roles role, string domain)
         {
-            var result = DeleteFilePermission(fileOfFolderId, Types.domain, role, domain);
+            var result = DeleteFilePermission(fileOrFolderId, Types.domain, role, domain);
             return result;
         }
         /// <summary>
@@ -91,9 +91,9 @@ namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
         /// <param name="fileOrFolderId">Id of file or folder from which you want to delete permission</param>
         /// <param name="role">Role which you want to delete from all users</param>
         ///<returns>PGDriveResult with bool in ResponseBody which shows did permission was deleted or not</returns>
-        public PGDriveResult<bool> DeletePermissionAnyone(string fileOfFolderId, Roles role)
+        public PGDriveResult<bool> DeletePermissionAnyone(string fileOrFolderId, Roles role)
         {
-            var result = DeleteFilePermission(fileOfFolderId, Types.anyone, role);
+            var result = DeleteFilePermission(fileOrFolderId, Types.anyone, role);
             return result;
         }
     }

@@ -4,15 +4,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace PGoogleDrive.Internal.Services
+namespace PGoogleDrive
 {
-    public static class Search
+    /// <summary>
+    /// This class will help you build your search queries using methods that returns SearchBy objects
+    /// </summary>
+    public static class PGSearch
     {
        static Dictionary<int, string> operators = new Dictionary<int, string>();
         static Dictionary<int, string> mimeTypes = new Dictionary<int, string>();
 
 
-        static Search()
+        static PGSearch()
         {
             InitializeOperators();
             InitializeMimeTypes();

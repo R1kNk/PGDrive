@@ -2,13 +2,15 @@
 using Google.Apis.Drive.v3;
 using Google.Apis.Drive.v3.Data;
 using PGoogleDrive.Internal.Models.General;
-using PGoogleDrive.Internal.Services.PermissionsInternal;
-using PGoogleDrive.Internal.Services.PermissionsInternal.Models;
+using PGoogleDrive.Internal.Models.Permissions;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PGoogleDrive.Internal.Services
-{
+{ 
+    /// <summary>
+    /// 
+    /// </summary>
     public class Permissions : ServiceModule
     {
         static IDictionary<int, string> PermissionRoles = new Dictionary<int, string>(6);

@@ -17,11 +17,10 @@ namespace PGoogleDrive.Internal.Services
 
 
         public string ApplicationName { get; set; }
-        public static FileDataStore FileDataStore { get; private set; }
 
-        public DriveService GetDriveService(string pGDriveConfigElementName, PGScope scopes = null, bool recreateOAuthToken = false)
+        public DriveService GetOAuthDrive(string ConfigOAuthDriveName, PGScope scopes = null, bool recreateOAuthToken = false)
         {
-            OAuthGDriveElement oAuth = PGDriveConfig.GetOAuthElement(pGDriveConfigElementName);
+            OAuthGDriveElement oAuth = PGDriveConfig.GetOAuthElement(ConfigOAuthDriveName);
             if (oAuth != null)
             {
                 List<string> scopesList = new List<string>();
@@ -29,26 +28,30 @@ namespace PGoogleDrive.Internal.Services
                 ApplicationName = oAuth.ApplicationName;
                 return GetOAuthDriveService(oAuth.ApplicationName, oAuth.ClientSecretPath, scopesList.ToArray(), recreateOAuthToken);
             }
-            ApiKeyGDriveElement apiKey = PGDriveConfig.GetApiKeyElement(pGDriveConfigElementName);
+            throw new NullReferenceException("There is no drive with such name in OAuthDrives collection of PGDrive config section");
+
+        }
+        public DriveService GetApiKeyDrive(string ConfigApiKeyDriveName)
+        {
+            
+            ApiKeyGDriveElement apiKey = PGDriveConfig.GetApiKeyElement(ConfigApiKeyDriveName);
             if (apiKey != null)
             {
-                ApplicationName = apiKey.ApplicationName;
-                return GetApiKeyDriveService(apiKey.ApplicationName, apiKey.ApiKey);
+                return GetApiKeyDriveService(apiKey.ApiKey);
             }
-            throw new NullReferenceException("There is no drive with such name in PGDrive Config Section");
+            throw new NullReferenceException("There is no drive with such name in ApiKeyDrives collection of PGDrive config section");
 
         }
 
-         public DriveService GetApiKeyDriveService(string ApplicationName, string ApiKey)
+        DriveService GetApiKeyDriveService(string ApiKey)
         {
             return new DriveService(new BaseClientService.Initializer()
             {
                 ApiKey = ApiKey,
-                ApplicationName = ApplicationName,
             }
             );
         }
-        public DriveService GetOAuthDriveService(string ApplicationName, string ClientSecretPath, string[] scopes, bool recreateOAuthToken = false)
+        DriveService GetOAuthDriveService(string ApplicationName, string ClientSecretPath, string[] scopes, bool recreateOAuthToken = false)
         {
             UserCredential credential = GetUserCredential(ApplicationName, ClientSecretPath, scopes, recreateOAuthToken);
             return new DriveService(new BaseClientService.Initializer()
@@ -59,7 +62,7 @@ namespace PGoogleDrive.Internal.Services
             );
         }
 
-         static UserCredential GetUserCredential(string ApplicationName, string ClientSecretPath, string[] scopes, bool recreateOAuthToken = false)
+         UserCredential GetUserCredential(string ApplicationName, string ClientSecretPath, string[] scopes, bool recreateOAuthToken = false)
         {
                 string exactPath = Path.GetFullPath(ClientSecretPath);
                 string CredentialPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -69,22 +72,16 @@ namespace PGoogleDrive.Internal.Services
             {
                 filedataStore.DeleteAsync<TokenResponse>(Environment.UserName);
             }
-
             using (var stream = new FileStream(exactPath, FileMode.Open, FileAccess.Read))
-                {
+            {
                    
                     var authToken =  GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.Load(stream).Secrets,
                         scopes,
                         Environment.UserName,
                       CancellationToken.None, filedataStore).Result;
-                //string lul = FileDataStore.GenerateStoredKey("auction", typeof(UserCredential));
-               // FileDataStore.GetAsync<>
-                //TokenResponse tokenResponse = new TokenResponse();
-                //tokenResponse.
-                //FileDataStore.DeleteAsync<FileDataStore>(lul);
                 return authToken;
-                }
+            }
            
 
         }

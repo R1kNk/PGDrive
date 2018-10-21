@@ -6,37 +6,59 @@ using System;
 namespace PGoogleDrive
 {
     /// <summary>
-    /// Main class of PGoogleDrive for  interaction with Google drive.
+    /// Main class of PGoogleDrive for interaction with Google drive.
     /// Contains all methods and modules to use.
     /// </summary>
     public class PGDrive
     {
-        /// <summary>
-        /// Application name that user uses to access drive via credentials
-        /// </summary>
-        public string ApplicationName { get; private set; }
+
+        string ApplicationName { get; set; }
 
         DriveService driveService { get; set; }
 
         /// <summary>
-        /// Creates a new object of PGDrive object and authenticates user
+        /// Static method that creates a new object of PGDrive class and authenticates user using OAuth2.0 authorization
         /// </summary>
-        /// <param name="pGDriveConfigElementName">Name of element in PGDrive section in your config</param>
-        /// <param name="scopes">Scopes provides permissions to use your drive. Use PGScopes static class,
-        /// combine scopes using method And in scopes.
+        /// <param name="ConfigOAuthDriveName">Name of element in ApiKeyDrives collection of PGDrive section in your config</param>
+        /// <param name="scopes"> USE PGScopes static class,
+        /// combine scopes using method And in scope objects.
+        /// Scopes provides permissions to use your drive.
         /// </param>
-        /// <param name="reCreateOAuthToken">Recreate your OAuth response token with new scopes you need?</param>
-        /// <exception cref="NullReferenceException">Throws if configElement with such name wasn't founded</exception>
-        public PGDrive(string pGDriveConfigElementName, PGScope scopes = null, bool reCreateOAuthToken = false)
+        /// <param name="reCreateOAuthToken">Recreates an access token for current drive if you want to change the scopes</param>
+        /// <exception cref="NullReferenceException">Throws if elemtent of OAuthDrives config collection with such name wasn't founded</exception>
+        public static PGDrive GetOAuthDrive(string ConfigOAuthDriveName, PGScope scopes = null, bool reCreateOAuthToken = false)
         {
-            Auth = new Auth();
-            driveService = Auth.GetDriveService(pGDriveConfigElementName, scopes, reCreateOAuthToken);
+            PGDrive newDrive = new PGDrive();
+            newDrive.Auth = new Auth();
+            newDrive.driveService = newDrive.Auth.GetOAuthDrive(ConfigOAuthDriveName, scopes, reCreateOAuthToken);
+            newDrive.InitializeModules();
+            return newDrive;
+
+        }
+
+        /// <summary>
+        /// Static method that creates a new object of PGDrive class and authenticates user using ApiKey authorization
+        /// </summary>
+        /// <param name="ConfigApiKeyDriveName">Name of element in ApiKeyDrives collection of PGDrive section in your config</param>
+        public static PGDrive GetApiKeyDrive (string ConfigApiKeyDriveName)
+        {
+            PGDrive newDrive = new PGDrive();
+            newDrive.Auth = new Auth();
+            newDrive.driveService = newDrive.Auth.GetApiKeyDrive(ConfigApiKeyDriveName);
+            newDrive.InitializeModules();
+            return newDrive;
+        }
+
+        internal PGDrive() {
+
+        }
+        void InitializeModules()
+        {
             ApplicationName = Auth.ApplicationName;
             Permissions = new Permissions(driveService);
             Files = new Files(driveService);
             Comments = new Comments(driveService);
             Replies = new Replies(driveService);
-
         }
 
         /// <summary>
@@ -55,6 +77,7 @@ namespace PGoogleDrive
         /// Contains all methods to work with replies to comments
         /// </summary>
         public Replies Replies { get; set; }
+
         Auth Auth { get; set; }
 
 

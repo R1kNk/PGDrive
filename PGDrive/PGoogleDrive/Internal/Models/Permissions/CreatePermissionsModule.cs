@@ -1,9 +1,9 @@
 ﻿using Google.Apis.Drive.v3.Data;
 using Google.Apis.Drive.v3;
-using static PGoogleDrive.Internal.Services.Permissions;
 using PGoogleDrive.Internal.Models.General;
+using static PGoogleDrive.Internal.Services.Permissions;
 
-namespace PGoogleDrive.Internal.Services.PermissionsInternal.Models
+namespace PGoogleDrive.Internal.Models.Permissions
 {
     /// <summary>
     /// Module that represents methods of creating permissions
